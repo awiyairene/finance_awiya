@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$first-color: #ff9d00;
+$second-color: #f73c5c;
+$third-color: #2a8bea;
+$four-color: #48caed;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Nunito, serif !important;
+}
+
