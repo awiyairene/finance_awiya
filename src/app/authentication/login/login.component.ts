@@ -5,6 +5,8 @@ import {LoginTemplate} from "../../models/LoginTemplate";
 import {AuthService} from "../../services/auth.service";
 import {LaddaModule} from "angular2-ladda";
 import {Router} from "@angular/router";
+import {NotifyService} from "../../services/notify.service";
+import {User} from "../../models/auth-response";
 
 @Component({
   selector: 'app-login',
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
+  notifyService = inject(NotifyService);
   router = inject(Router);
 
   loginForm: FormGroup;
@@ -32,6 +35,13 @@ export class LoginComponent implements OnInit {
   isLoading = signal<boolean>(false);
 
   constructor() {
+    this.authService.isAuthenticated().subscribe({
+      next: value => {
+        if (value) {
+          this.router.navigateByUrl("/dashboard");
+        }
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -56,6 +66,7 @@ export class LoginComponent implements OnInit {
         }, error: err => {
           console.error("LOGIN_FAILED", err);
           this.isLoading.set(false);
+          this.notifyService.openDefault("Identifiants invalides", "OK");
         }
       })
     } else {
