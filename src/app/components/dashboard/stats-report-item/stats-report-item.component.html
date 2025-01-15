@@ -1,0 +1,15 @@
+<div class="w-full h-full shadow-sm p-5 flex flex-col justify-between rounded-sm" [style.background-color]="bgColor">
+
+  <div class="w-full flex items-center justify-end">
+    <h5 class="text-neutral-50">
+      {{ designation }}
+    </h5>
+  </div>
+
+  <div class="w-full flex items-center justify-start">
+    <h1 class="text-neutral-50 font-bold">
+      {{ isAmount ? (dataValue | currency) : dataValue }}
+    </h1>
+  </div>
+
+</div>

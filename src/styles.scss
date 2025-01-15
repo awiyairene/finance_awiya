@@ -17,3 +17,14 @@ body {
   font-family: Nunito, serif !important;
 }
 
+.notify-success {
+  @apply bg-teal-700;
+}
+
+.notify-error {
+  @apply bg-red-700;
+}
+
+.notify-warning {
+  @apply bg-orange-700;
+}

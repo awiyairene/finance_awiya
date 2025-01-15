@@ -1,0 +1,143 @@
+<app-main-sketch>
+
+  <section class="w-full h-full flex flex-col">
+
+    <H2>
+      GESTION DES DEPENSES
+    </H2>
+    <div class="my-3"></div>
+
+    <div class="w-full flex flex-col items-center">
+
+      <div class="py-6 w-full">
+
+        <div class="w-full flex justify-end items-center mb-10">
+          <button class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+                  (click)="addNewExpense()">
+            Nouvelle Dépense
+          </button>
+        </div>
+
+        <div class="w-full flex justify-center items-center mb-6">
+          <app-filter-data class="w-full" [isLoading]="isLoading()"
+                           (searchData)="getExpenses()"
+                           [searchFilter]="searchFilter"></app-filter-data>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+            <tr>
+              <th
+                *ngFor="let header of headers"
+                (click)="sort(header.key)"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              >
+                <div class="flex items-center">
+                  {{ header.label }}
+                  <span class="ml-2">
+                    <svg *ngIf="sortColumn === header.key"
+                         [class.transform]="sortDirection === 'desc'"
+                         [class.rotate-180]="sortDirection === 'desc'"
+                         class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                    </svg>
+                  </span>
+                </div>
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let expense of paginatedExpenses">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {{ expense.designation }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                  [matTooltip]="expense.createdDate.toString()">
+                {{ customDate(expense.createdDate) }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">
+                {{ expense.amount }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ expense.author }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex items-center justify-start gap-x-5">
+                  <a #mediaLink [href]="expense.media" class="hidden" target="_blank"></a>
+                  <button mat-icon-button class="" color="primary" (click)="mediaLink.click()" *ngIf="expense.media">
+                    <mat-icon class="">
+                      file_open
+                    </mat-icon>
+                  </button>
+                  <button mat-icon-button class="" color="accent" (click)="updateExpense(expense)">
+                    <mat-icon>
+                      edit
+                    </mat-icon>
+                  </button>
+                  <button mat-icon-button class="" color="warn" (click)="deleteExpense(expense)">
+                    <mat-icon>
+                      delete
+                    </mat-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
+          <div class="flex items-center">
+            <select
+              [(ngModel)]="pageSize"
+              (change)="onPageSizeChange()"
+              class="px-3 py-2 border border-gray-300 rounded-md text-sm"
+            >
+              <option [value]="10">10 par page</option>
+              <option [value]="20">20 par page</option>
+              <option [value]="50">50 par page</option>
+            </select>
+            <span class="ml-4 text-sm text-gray-700">
+            Montre {{ startIndex + 1 }} à {{ endIndex }} de {{ totalExpenses }} données
+          </span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button
+              [disabled]="currentPage === 0"
+              (click)="onPageChange(currentPage - 1)"
+              class="px-3 py-2 border border-gray-300 rounded-md text-sm disabled:opacity-50"
+              [class.cursor-not-allowed]="currentPage === 0"
+            >
+              Précedent
+            </button>
+            <button
+              *ngFor="let page of pages"
+              (click)="onPageChange(page)"
+              class="px-3 py-2 border border-gray-300 rounded-md text-sm"
+              [class.bg-indigo-600]="currentPage === page"
+              [class.text-white]="currentPage === page"
+            >
+              {{ page + 1 }}
+            </button>
+            <button
+              [disabled]="currentPage === totalPages - 1"
+              (click)="onPageChange(currentPage + 1)"
+              class="px-3 py-2 border border-gray-300 rounded-md text-sm disabled:opacity-50"
+              [class.cursor-not-allowed]="currentPage === totalPages - 1"
+            >
+              Suivant
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+</app-main-sketch>

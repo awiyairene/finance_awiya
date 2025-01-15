@@ -13,6 +13,7 @@ import {LaddaModule} from "angular2-ladda";
 import {AngularFireModule} from "@angular/fire/compat";
 import {AngularFireAuthGuardModule} from "@angular/fire/compat/auth-guard";
 import {AuthService} from "./services/auth.service";
+import {NgChartsModule} from "ng2-charts";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,6 +34,7 @@ export const appConfig: ApplicationConfig = {
         style: "zoom-out",
       }),
       AuthService,
+      NgChartsModule,
     ),
     //provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),

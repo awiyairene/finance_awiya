@@ -1,0 +1,61 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 10;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  flex: 1 0 auto;
+}
+
+@media (max-width: 600px) {
+  .example-sidenav-container:hover .menus-content {
+    transform: translateX(0) !important;
+  }
+
+  .menus-content {
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+  }
+}
+
+.main-content {
+  padding: 5rem !important;
+}
+
+.menus-content {
+  min-width: 300px !important;
+  max-width: fit-content !important;
+  padding: 2rem !important;
+}
+
+.menu-active {
+  @apply bg-rose-500 hover:bg-rose-600;
+
+  span {
+    color: white !important;
+  }
+
+  .mdc-list-item__content {
+    .mdc-list-item__primary-text {
+      color: white !important;
+    }
+  }
+}

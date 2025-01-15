@@ -1,0 +1,59 @@
+<app-form-sketch-popup [title]="popupTitle()" [actionText]="'Enregistrer'"
+                       [formGroup]="formGroup" [isLoading]="isLoading()"
+                       (close)="closePopup()" (submit)="handleSubmit()">
+
+  <form action="" class="" [formGroup]="formGroup" *ngIf="transaction">
+
+    <div class="mb-4">
+      <label for="designation" class="block text-sm font-medium text-gray-700">Désignation *</label>
+      <input type="text" id="designation" name="designation" formControlName="designation" [(ngModel)]="transaction.designation"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <span class="text-red-900 text-xs ms-2"
+            *ngIf="formControls['designation'].touched && formControls['designation'].hasError('required')">
+        Champ obligatoire
+      </span>
+    </div>
+
+    <div class="mb-4">
+      <label for="createdDate" class="block text-sm font-medium text-gray-700">Date *</label>
+      <input type="date" id="createdDate" name="createdDate" formControlName="createdDate" [(ngModel)]="transaction.createdDate"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+       <span class="text-red-900 text-xs ms-2"
+            *ngIf="formControls['createdDate'].touched && formControls['createdDate'].hasError('required')">
+        Champ obligatoire
+      </span>
+    </div>
+
+    <div class="mb-4">
+      <label for="amount" class="block text-sm font-medium text-gray-700">Montant *</label>
+      <input type="number" id="amount" name="amount" formControlName="amount" [(ngModel)]="transaction.amount"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+       <span class="text-red-900 text-xs ms-2"
+            *ngIf="formControls['amount'].touched && formControls['amount'].hasError('required')">
+        Champ obligatoire
+      </span>
+       <span class="text-red-900 text-xs ms-2"
+            *ngIf="formControls['amount'].touched && transaction.amount == 0">
+        Le montant doit être supérieure à 0
+      </span>
+    </div>
+
+    <div class="mb-4">
+      <label for="author" class="block text-sm font-medium text-gray-700">Auteur *</label>
+      <input type="text" id="author" name="author" formControlName="author" [(ngModel)]="transaction.author"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+       <span class="text-red-900 text-xs ms-2"
+            *ngIf="formControls['author'].touched && formControls['author'].hasError('required')">
+        Champ obligatoire
+      </span>
+    </div>
+
+    <div class="mb-4">
+      <label for="media" class="block text-sm font-medium text-gray-700">Preuve (Optional : lien du fichier)</label>
+      <input type="text" id="media" name="media" formControlName="media" placeholder="https://...." [(ngModel)]="transaction.media"
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    </div>
+
+  </form>
+
+</app-form-sketch-popup>

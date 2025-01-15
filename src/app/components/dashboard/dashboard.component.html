@@ -1,0 +1,101 @@
+<app-main-sketch>
+
+  <section class="w-full h-full flex flex-col pb-10">
+
+    <H2>
+      TABLEAU DE BORD
+    </H2>
+    <div class="my-3"></div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-container">
+
+      <div class="w-full h-auto">
+        <app-stats-report-item
+          [bgColor]="defaultColors[0]"
+          [designation]="'Nombre total des dépenses'"
+          [dataValue]="statsReport.expensesCount.toString()">
+        </app-stats-report-item>
+      </div>
+
+      <div class="w-full h-auto">
+        <app-stats-report-item
+          [bgColor]="defaultColors[1]"
+          [designation]="'Nombre total des recettes'"
+          [dataValue]="statsReport.recipesCount.toString()">
+        </app-stats-report-item>
+      </div>
+
+      <div class="w-full h-auto">
+        <app-stats-report-item
+          [bgColor]="defaultColors[2]"
+          [designation]="'Montant total des dépenses'"
+          [isAmount]="true"
+          [dataValue]="statsReport.expensesTotalAmount.toString()">
+        </app-stats-report-item>
+      </div>
+
+      <div class="w-full h-auto">
+        <app-stats-report-item
+          [bgColor]="defaultColors[3]"
+          [designation]="'Montant total des recettes'"
+          [isAmount]="true"
+          [dataValue]="statsReport.recipesTotalAmount.toString()">
+        </app-stats-report-item>
+      </div>
+
+    </div>
+
+    <div class="my-10"></div>
+
+    <div class="w-full flex items-center justify-center space-x-2">
+      <button (click)="launchWeeklyChartData()"
+              [ngClass]="{
+                'bg-orange-500 text-white border-orange-500': hasWeekData(),
+                'bg-white text-orange-500 border-orange-500': !hasWeekData()
+               }"
+              class="px-4 py-2 rounded border-2 hover:bg-orange-600 hover:text-white">
+        Une semaine
+      </button>
+      <button (click)="launchMonthlyChartData()"
+              [ngClass]="{
+                'bg-orange-500 text-white border-orange-500': hasMonthData(),
+                'bg-white text-orange-500 border-orange-500': !hasMonthData()
+               }"
+              class="px-4 py-2 rounded border-2 hover:bg-orange-600 hover:text-white">
+        Un mois
+      </button>
+      <button (click)="launchQuarterlyChartData()"
+              [ngClass]="{
+                'bg-orange-500 text-white border-orange-500': hasQuarterData(),
+                'bg-white text-orange-500 border-orange-500': !hasQuarterData()
+               }"
+              class="px-4 py-2 rounded border-2 hover:bg-orange-600 hover:text-white">
+        Trois mois
+      </button>
+    </div>
+    <div class="my-5"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-container mb-20" *ngIf="!isChartDataLoading() && chartData">
+
+      <div class="w-full py-0 md:py-5" style="height: 500px !important;">
+        <app-line-chart class="w-full h-full" *ngIf="!isChartDataLoading()"
+                        [xLabels]="chartData.xLabels"
+                        [expensesData]="chartData.expensesCountData"
+                        [recipesData]="chartData.recipesCountData">
+        </app-line-chart>
+      </div>
+
+      <div class="w-full py-0 md:py-5" style="height: 500px !important;">
+        <app-line-chart class="w-full h-full" *ngIf="!isChartDataLoading()"
+                        [xLabels]="chartData.xLabels"
+                        [expensesData]="chartData.expensesAmountData"
+                        [recipesData]="chartData.recipesAmountData">
+        </app-line-chart>
+      </div>
+
+    </div>
+
+    <div class="mb-20"></div>
+
+  </section>
+
+</app-main-sketch>

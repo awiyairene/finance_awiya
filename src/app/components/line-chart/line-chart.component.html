@@ -1,0 +1,10 @@
+<div class="w-full h-full flex items-center justify-center" style=""
+     *ngIf="lineChartLabels && lineChartData">
+  <canvas baseChart class="" style="height: 500px !important; width: 100% !important;"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend"
+          [type]="'line'">
+  </canvas>
+</div>
