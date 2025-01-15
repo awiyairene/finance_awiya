@@ -2,6 +2,7 @@ import {CanActivateFn, Router} from '@angular/router';
 import {inject} from "@angular/core";
 import {AuthService} from "../services/auth.service";
 import {map, take, tap} from "rxjs";
+import {user} from "@angular/fire/auth";
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -12,7 +13,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     map(user => !!user),
     tap(loggedIn => {
       if (!loggedIn) {
-        router.navigate(['/auth']);
+        router.createUrlTree(['/login'], {});
         return false;
       }
       return true;

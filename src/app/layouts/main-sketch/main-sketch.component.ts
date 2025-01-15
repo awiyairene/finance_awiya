@@ -66,10 +66,6 @@ export class MainSketchComponent implements OnDestroy, AfterViewInit, OnChanges 
       next: value => {
         if (value) {
           this.user = value.toJSON() as User;
-          //console.log(this.user);
-        } else {
-          //console.log("No user logged");
-          this.authService.logout();
         }
       }, error: err => {
         console.error(err);

@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class AuthService {
 
-  constructor(private fireAuth: AngularFireAuth, private router: Router, ) {
+  constructor(private fireAuth: AngularFireAuth, private router: Router,) {
   }
 
   login(data: LoginTemplate): Observable<any> {
@@ -21,8 +21,7 @@ export class AuthService {
   }
 
   logout() {
-    this.fireAuth.signOut();
-    this.router.navigate(['/login']);
+    this.fireAuth.signOut().then(value => this.router.navigate(['/login']));
   }
 
   getUser() {

@@ -4,9 +4,7 @@ import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, V
 import {LoginTemplate} from "../../models/LoginTemplate";
 import {AuthService} from "../../services/auth.service";
 import {LaddaModule} from "angular2-ladda";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {Router} from "@angular/router";
-import {User} from "../../models/auth-response";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +17,6 @@ import {User} from "../../models/auth-response";
   ],
   providers: [
     AuthService,
-    AngularFireAuth,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -35,7 +32,6 @@ export class LoginComponent implements OnInit {
   isLoading = signal<boolean>(false);
 
   constructor() {
-
   }
 
   ngOnInit(): void {
@@ -56,6 +52,7 @@ export class LoginComponent implements OnInit {
         next: (value) => {
           //console.log(value);
           this.isLoading.set(false);
+          this.router.navigate(["/dashboard"]);
         }, error: err => {
           console.error("LOGIN_FAILED", err);
           this.isLoading.set(false);
